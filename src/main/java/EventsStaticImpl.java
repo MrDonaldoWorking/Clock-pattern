@@ -25,7 +25,7 @@ public class EventsStaticImpl implements EventsStatic {
         events.get(name).add(clock.instant());
     }
 
-    private List<Instant> filter(final Instant current, final List<Instant> events) {
+    private static List<Instant> filter(final Instant current, final List<Instant> events) {
         final Instant hourAgo = current.minus(1L, ChronoUnit.HOURS);
         final List<Instant> filtered = new ArrayList<>();
         for (final Instant event : events) {
@@ -36,8 +36,8 @@ public class EventsStaticImpl implements EventsStatic {
         return filtered;
     }
 
-    private double calcRPM(final Instant current, final List<Instant> events) {
-         return (double) filter(current, events).size() / events.size();
+    public static double calcRPM(final Instant current, final List<Instant> events) {
+         return (double) filter(current, events).size() / MIN_IN_HRS;
     }
 
     @Override
